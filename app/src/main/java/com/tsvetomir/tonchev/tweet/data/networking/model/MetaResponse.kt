@@ -1,4 +1,4 @@
-package com.tsvetomir.tonchev.tweet.data.models.remote
+package com.tsvetomir.tonchev.tweet.data.networking.model
 
 import com.google.gson.annotations.SerializedName
 

@@ -4,11 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.tsvetomir.tonchev.tweet.R
-import com.tsvetomir.tonchev.tweet.data.models.local.Tweet
+import com.tsvetomir.tonchev.tweet.ui.main.model.Tweet
 
-class TweetsAdapter :
+class TweetsAdapter(private val onTweetSelected: (usLimitData: Tweet) -> Unit) :
     RecyclerView.Adapter<TweetsAdapter.TweetViewHolder>() {
 
     private val mTweetList = mutableListOf<Tweet>()
@@ -21,12 +22,10 @@ class TweetsAdapter :
 
     override fun onBindViewHolder(holder: TweetViewHolder, position: Int) {
         val item = mTweetList[position]
-        holder.mInfo.text = item.info
+        holder.bind(item, onTweetSelected)
     }
 
-    override fun getItemCount(): Int {
-        return mTweetList.size
-    }
+    override fun getItemCount(): Int = mTweetList.size
 
     fun loadData(dataList: List<Tweet>) {
         mTweetList.clear()
@@ -35,6 +34,14 @@ class TweetsAdapter :
     }
 
     class TweetViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val mInfo: TextView = view.findViewById(R.id.tweet_info_tx)
+        private val mInfo: TextView = view.findViewById(R.id.tv_tweet_info)
+        private val container: CardView = view.findViewById(R.id.card_container)
+
+        fun bind(tweet: Tweet, onTweetSelected: (usLimitData: Tweet) -> Unit) {
+            mInfo.text = tweet.info
+            container.setOnClickListener {
+                onTweetSelected(tweet)
+            }
+        }
     }
 }

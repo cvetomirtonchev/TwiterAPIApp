@@ -9,5 +9,8 @@ class TweetsDataSource : RemoteDataSource() {
         baseRetrofitClient.createService(TweetsService::class.java)
     }
 
-    fun getTweetsByKeyword(keyword: String) = getResponseBody(service.getTweetsByKeyword(keyword))
+    fun getTweetsByKeyword(keyword: String, expansions: String) =
+        getResponseBody(service.getTweetsByKeyword(keyword, expansions))
+
+    fun getUsers(id: String, userFields: String) = getResponseBody(service.getUsers(id, userFields))
 }
