@@ -12,17 +12,20 @@ interface TweetsService {
         private const val GET_RECENT_TWEETS_PATH = "2/tweets/search/recent"
         private const val GET_USERS = "2/users/{id}"
         private const val KEYWORD_QUERY = "query"
+        private const val EXPANSIONS_QUERY = "expansions"
+        private const val PATH_ID = "id"
+        private const val USER_FIELD_QUERY = "user.fields"
     }
 
     @GET(GET_RECENT_TWEETS_PATH)
     fun getTweetsByKeyword(
         @Query(KEYWORD_QUERY) keyword: String,
-        @Query("expansions") expansions: String
+        @Query(EXPANSIONS_QUERY) expansions: String
     ): Call<TweetsResponse>
 
     @GET(GET_USERS)
     fun getUsers(
-        @Path("id") id: String,
-        @Query("user.fields") userFields: String
+        @Path(PATH_ID) id: String,
+        @Query(USER_FIELD_QUERY) userFields: String
     ): Call<UserResponse>
 }

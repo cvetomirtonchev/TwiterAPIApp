@@ -11,8 +11,8 @@ import kotlinx.coroutines.launch
 
 class MainActivityViewModel : ViewModel() {
 
-    private val mTweetsListLiveData = MutableLiveData<List<Tweet>>()
-    fun observeTweetsListLiveData() = mTweetsListLiveData as LiveData<List<Tweet>>
+    private val _tweetsListLiveData = MutableLiveData<List<Tweet>>()
+    fun observeTweetsListLiveData() = _tweetsListLiveData as LiveData<List<Tweet>>
 
 
     fun getTweetByKeyword(keyword: String) {
@@ -21,7 +21,7 @@ class MainActivityViewModel : ViewModel() {
                 .onLeft {
                     // send error
                 }.onRight { responseData ->
-                    mTweetsListLiveData.value = mapResponse(responseData)
+                    _tweetsListLiveData.value = mapResponse(responseData)
                 }
         }
     }
